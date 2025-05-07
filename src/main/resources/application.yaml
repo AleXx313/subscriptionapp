@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: SubscriptionApp
+  datasource:
+    url: jdbc:postgresql://localhost:5432/subscription
+    username: sub
+    password: sub
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/subscription
+    user: sub
+    password: sub
+    schemas:
+      - public
+      - app_subscription
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+logging:
+  level:
+    flyway.org: debug
+    postgresql.org: debug
+
+server:
+  port: 8085
