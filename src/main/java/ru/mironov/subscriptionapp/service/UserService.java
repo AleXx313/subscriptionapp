@@ -1,14 +1,16 @@
 package ru.mironov.subscriptionapp.service;
 
-import ru.mironov.subscriptionapp.dto.UserDto;
+import ru.mironov.subscriptionapp.controller.payload.NewUserPayload;
+import ru.mironov.subscriptionapp.controller.payload.UpdateUserPayload;
+import ru.mironov.subscriptionapp.entity.User;
 
 public interface UserService {
 
-    UserDto save(UserDto userDto);
+    User save(NewUserPayload payload);
 
-    UserDto findById(Integer id);
+    User findById(Integer id);
 
-    UserDto update(UserDto userDto);
+    User update(Integer id, UpdateUserPayload payload);
 
     void deleteById(Integer id);
 }

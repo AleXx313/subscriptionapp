@@ -1,16 +1,16 @@
-package ru.mironov.subscriptionapp.model;
+package ru.mironov.subscriptionapp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
+@Builder
 @Entity
 @Table(schema = "app_subscription", name = "users")
 public class User {
@@ -35,7 +35,6 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "subscription_id")
     )
-    private List<Subscription> subscriptions;
-
+    private Set<Subscription> subscriptions;
 
 }

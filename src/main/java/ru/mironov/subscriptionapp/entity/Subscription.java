@@ -1,4 +1,4 @@
-package ru.mironov.subscriptionapp.model;
+package ru.mironov.subscriptionapp.entity;
 
 
 import jakarta.persistence.*;
@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -27,5 +27,5 @@ public class Subscription {
     private String details;
 
     @ManyToMany(mappedBy = "subscriptions")
-    private List<User> users;
+    private Set<User> users;
 }
