@@ -29,7 +29,7 @@ public class User {
     @Column(name = "birthdate")
     private LocalDateTime birthdate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "user_subscription",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -37,4 +37,13 @@ public class User {
     )
     private Set<Subscription> subscriptions;
 
+    public void addSubscription(Subscription subscription) {
+        this.subscriptions.add(subscription);
+        subscription.getUsers().add(this);
+    }
+
+    public void removeSubscription(Subscription subscription) {
+        this.subscriptions.remove(subscription);
+        subscription.getUsers().remove(this);
+    }
 }
