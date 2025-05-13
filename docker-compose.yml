@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  subscription-app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://subs-cat-db:5432/subscription
+      SPRING_DATASOURCE_USERNAME: sub
+      SPRING_DATASOURCE_PASSWORD: sub
+    depends_on:
+      subs-cat-db:
+        condition: service_healthy
+
+  subs-cat-db:
+    image: postgres:16
+    container_name: subs-cat-db
+    environment:
+      POSTGRES_DB: subscription
+      POSTGRES_USER: sub
+      POSTGRES_PASSWORD: sub
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sub -d subscription"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:

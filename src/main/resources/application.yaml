@@ -2,12 +2,12 @@ spring:
   application:
     name: SubscriptionApp
   datasource:
-    url: jdbc:postgresql://localhost:5432/subscription
+    url: jdbc:postgresql://subs-cat-db:5432/subscription
     username: sub
     password: sub
   flyway:
     enabled: true
-    url: jdbc:postgresql://localhost:5432/subscription
+    url: jdbc:postgresql://subs-cat-db:5432/subscription
     user: sub
     password: sub
     schemas:
@@ -22,4 +22,4 @@ spring:
       ddl-auto: none
     generate-ddl: false
 server:
-  port: 8085
+  port: 8080

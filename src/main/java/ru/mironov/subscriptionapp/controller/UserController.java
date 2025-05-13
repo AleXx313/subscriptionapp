@@ -1,5 +1,8 @@
 package ru.mironov.subscriptionapp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +21,24 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "User Controller", description = "Управление пользователями")
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
+    @Operation(
+            summary = "Создать пользователя",
+            description = "Возвращает созданного пользователя"
+    )
+    @ApiResponse(responseCode = "201", description = "Пользователь создан")
+    @ApiResponse(responseCode = "400", description = "Ошибка валидации")
     public ResponseEntity<User> createUser(@RequestBody @Valid NewUserPayload payload,
                                            BindingResult bindingResult,
                                            UriComponentsBuilder uriComponentsBuilder) throws BindException {
-        if (bindingResult.hasErrors()){
-            if (bindingResult instanceof BindException exception){
+        if (bindingResult.hasErrors()) {
+            if (bindingResult instanceof BindException exception) {
                 throw exception;
             } else {
                 throw new BindException(bindingResult);
@@ -44,19 +54,32 @@ public class UserController {
         }
     }
 
+    @Operation(
+            summary = "Получить пользователя по id",
+            description = "Возвращает пользователя с указанным идентификатором"
+    )
+    @ApiResponse(responseCode = "200", description = "Пользователь найден")
+    @ApiResponse(responseCode = "404", description = "Пользователь не найден")
     @GetMapping("{id}")
-    public ResponseEntity<User> findUser(@PathVariable("id") Integer id){
+    public ResponseEntity<User> findUser(@PathVariable("id") Integer id) {
         User user = userService.findById(id);
         log.debug("User found: {}", user);
         return ResponseEntity.ok(user);
     }
 
+    @Operation(
+            summary = "Обновить пользователя по id",
+            description = "Возвращает обновленного пользователя"
+    )
+    @ApiResponse(responseCode = "200", description = "Пользователь обновлен")
+    @ApiResponse(responseCode = "400", description = "Ошибка валидации")
+    @ApiResponse(responseCode = "404", description = "Пользователь не найден")
     @PatchMapping("{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id,
                                            @RequestBody @Valid UpdateUserPayload payload,
-                                           BindingResult bindingResult) throws BindException{
-        if (bindingResult.hasErrors()){
-            if (bindingResult instanceof BindException exception){
+                                           BindingResult bindingResult) throws BindException {
+        if (bindingResult.hasErrors()) {
+            if (bindingResult instanceof BindException exception) {
                 throw exception;
             } else {
                 throw new BindException(bindingResult);
@@ -68,8 +91,14 @@ public class UserController {
         }
     }
 
+    @Operation(
+            summary = "Удалить пользователя по id",
+            description = "Тело ответа отсутствует"
+    )
+    @ApiResponse(responseCode = "204", description = "Пользователь удален")
+    @ApiResponse(responseCode = "404", description = "Пользователь не найден")
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id){
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
         userService.deleteById(id);
         log.debug("User with id - {} deleted", id);
         return ResponseEntity.noContent().build();
