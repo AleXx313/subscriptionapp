@@ -30,6 +30,7 @@ public class User {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
+            schema = "app_subscription",
             name = "user_subscription",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "subscription_id")
