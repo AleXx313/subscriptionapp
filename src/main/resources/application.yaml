@@ -21,10 +21,5 @@ spring:
     hibernate:
       ddl-auto: none
     generate-ddl: false
-logging:
-  level:
-    flyway.org: debug
-    postgresql.org: debug
-
 server:
   port: 8085

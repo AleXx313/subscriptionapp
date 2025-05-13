@@ -2,6 +2,7 @@ package ru.mironov.subscriptionapp.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/users")
 public class UserController {
 
@@ -33,6 +35,7 @@ public class UserController {
             }
         } else {
             User user = userService.save(payload);
+            log.debug("Created new user: {}", user);
             return ResponseEntity.created(
                             uriComponentsBuilder
                                     .replacePath("/users/{id}")
@@ -43,7 +46,9 @@ public class UserController {
 
     @GetMapping("{id}")
     public ResponseEntity<User> findUser(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(userService.findById(id));
+        User user = userService.findById(id);
+        log.debug("User found: {}", user);
+        return ResponseEntity.ok(user);
     }
 
     @PatchMapping("{id}")
@@ -58,6 +63,7 @@ public class UserController {
             }
         } else {
             User user = userService.update(id, payload);
+            log.debug("User updated: {}", user);
             return ResponseEntity.ok(user);
         }
     }
@@ -65,6 +71,7 @@ public class UserController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id){
         userService.deleteById(id);
+        log.debug("User with id - {} deleted", id);
         return ResponseEntity.noContent().build();
     }
 }

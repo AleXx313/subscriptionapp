@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import ru.mironov.subscriptionapp.entity.Subscription;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SubscriptionRepository extends CrudRepository<Subscription, Integer> {
@@ -19,5 +20,5 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Int
                     limit 3
                     """, nativeQuery = true
     )
-    Iterable<Subscription> findMostPopularSubscriptions();
+    List<Subscription> findMostPopularSubscriptions();
 }

@@ -2,7 +2,9 @@ package ru.mironov.subscriptionapp.service;
 
 import ru.mironov.subscriptionapp.entity.Subscription;
 
+import java.util.List;
+
 public interface SubscriptionService {
 
-    Iterable<Subscription> findTopSubscription();
+    List<Subscription> findTopSubscription();
 }
