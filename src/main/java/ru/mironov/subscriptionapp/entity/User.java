@@ -1,8 +1,10 @@
 package ru.mironov.subscriptionapp.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -11,22 +13,27 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@Schema(description = "Сущность пользователя")
 @Table(schema = "app_subscription", name = "users")
 public class User {
 
     @Id
+    @Schema(description = "Уникальный идентификатор подписки", example = "1")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
+    @Schema(description = "Имя пользователя", example = "Иван Иванов")
     @Column(name = "username")
     private String username;
 
+    @Schema(description = "Email пользователя", example = "ivan@ivanov.ru")
     @Column(name = "email")
     private String email;
 
+    @Schema(description = "Дата рождения пользователя", example = "2025-05-14")
     @Column(name = "birthdate")
-    private LocalDateTime birthdate;
+    private LocalDate birthdate;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
