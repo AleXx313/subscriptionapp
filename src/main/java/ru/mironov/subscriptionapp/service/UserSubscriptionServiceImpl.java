@@ -22,7 +22,7 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     public void addSubscription(Integer userId, NewSubscriptionPayload subscriptionPayload) {
         User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
         Subscription subscription = subscriptionRepository.findByTitle(subscriptionPayload.getTitle())
-                .orElseGet(()-> {
+                .orElseGet(() -> {
                     Subscription newSubscription = new Subscription();
                     newSubscription.setTitle(subscriptionPayload.getTitle());
                     newSubscription.setDetails(subscriptionPayload.getDetails());

@@ -1,5 +1,5 @@
 package ru.mironov.subscriptionapp.exception;
 
-public class NotFoundException extends RuntimeException{
+public class NotFoundException extends RuntimeException {
 
 }

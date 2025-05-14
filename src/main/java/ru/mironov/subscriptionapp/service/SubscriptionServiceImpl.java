@@ -12,6 +12,7 @@ import java.util.List;
 public class SubscriptionServiceImpl implements SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
+
     @Override
     public List<Subscription> findTopSubscription() {
         return subscriptionRepository.findMostPopularSubscriptions();

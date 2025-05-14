@@ -21,7 +21,7 @@ public class Subscription {
 
     @Id
     @Schema(description = "Уникальный идентификатор подписки", example = "1")
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
